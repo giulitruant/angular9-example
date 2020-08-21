@@ -19,12 +19,14 @@ export class TodoFooterComponent implements OnInit {
 
   }
   incompletedSize() {
-    this.countTodo = this.service.incompletedSize()
-    return this.countTodo;
+    //this.countTodo = 
+    return this.service.incompletedSize()
+    //return this.countTodo;
   }
   completedSize() {
-    this.countCompleted =this.service.completedSize()
-    return this.countCompleted;
+    //this.countCompleted = 
+    return this.service.completedSize();
+    // return this.countCompleted;
   }
 
 }

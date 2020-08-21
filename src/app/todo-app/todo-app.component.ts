@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TodoItem} from '../model/todo-item';
+import {TodoItem, TodoItemComponent} from '../model/todo-item';
 import { element } from 'protractor';
 import { TodoService } from '../todo.service';
 /** */
@@ -12,18 +12,32 @@ export class TodoAppComponent  {
 
   constructor(
     private service: TodoService
-  ) {}
+  ) {  }
 
   getList() {
     return this.service.list;
+
   }
+
   onTodoItemRemoved(id) {
     this.service.remove(id);
+
   }
-  onItemStateChanged(item: TodoItem) {
-    item.toggleCompleted();
+
+  onItemStateChanged(item: TodoItemComponent) {    
+    item.todoItemForm.patchValue({
+      isCompleted: !(item.todoItemForm.get('isCompleted'))
+    });
+    
   }
-  onTodoItemCreated(task) {
-    this.service.add(task)
+
+  onItemEdit(){
+    
   }
+
+  onTodoItemCreated(task) {    
+    this.service.add(task);
+
+  }
+
 }

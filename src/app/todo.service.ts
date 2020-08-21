@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
+import { TodoItemComponent } from './model/todo-item';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,11 @@ export class TodoService {
 
   constructor(private storage: LocalStorageService) { }
   
-  add(task) {
+  add(task: TodoItemComponent) {
     const id = this.lastItemId;
-    task.id = id;
+    task.todoItemForm.patchValue({
+      id: id 
+    });
     this.list.push(task);
     this.lastItemId += 10;
   }

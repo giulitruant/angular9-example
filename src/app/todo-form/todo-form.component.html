@@ -1,10 +1,36 @@
+<br>
+<br>
+<div>
+  <form [formGroup]="todoItemForm" (ngSubmit)="onSubmit()">
+  <label>
+    Descripción:
+    <input type="text" formControlName="description">
+  </label>
+  <label>
+    Url:
+    <input type="text" formControlName="url">
+  </label>
+  <button type="submit" [disabled]="!todoItemForm.valid">Guardar</button>
+  <button type="button" (click)="initialize()" >Reset</button>
+</form>
+</div>
 
-<input type="text" #taskDescription class="add-todo">
+<!--
+<div>
+  <div>
+    Valido {{todoItemForm.valid}}
 
-<button
-  class="btn btn-primary"
-  (click)="save(taskDescription)">
-  Create
-</button>
+  </div>
+  Touched {{todoItemForm.touched}}
+</div>
 
+
+<form [formGroup]="todoItemForm" (ngSubmit)="onSubmit()">
+  <label>
+    Descripción:
+    <input type="text" formcontrolname="description">
+  </label>  
+<button type="submit" [disabled]="!todoItemForm.valid">Crear</button>
+</form>
+-->
 

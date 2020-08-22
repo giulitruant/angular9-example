@@ -1,0 +1,25 @@
+
+<div class="content-wrapper full-width">
+    <div class="content-table">
+        <mat-toolbar class="table-title full-width" color="primary">
+            <span>Parametrización de Umbrales</span>
+        </mat-toolbar>
+        <mat-spinner *ngIf="!choferes" diameter="40" class="mx-auto my-5"></mat-spinner>
+        <form class="form full-width" (submit)="save()" *ngIf="choferes">
+            <div formArrayName="chofer"
+            *ngFor="let item of this.chofererFormGroup.controls; let i = index;">
+            <div [formGroupName]="i">
+                <input formControlName="Cuil" placeholder="Cuil">
+                <input formControlName="Nombre" placeholder="Nombre">
+                <input formControlName="Apellido" placeholder="Apellido">
+                <input formControlName="Telefono" placeholder="Telefono">
+                <input formControlName="Email" placeholder="Email">
+                <input formControlName="Provincia" placeholder="Provincia">
+                <input formControlName="Localidad" placeholder="Localidad">
+                <input formControlName="Domicilio" placeholder="Domicilio">
+            </div>
+            <!-- Chosen name: {{ chofererFormGroup.controls.items.controls[i].controls.name.value }} -->
+        </div>
+    </form>
+</div>
+</div>

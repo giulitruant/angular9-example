@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RiskService } from '../risk.service';
 import { finalize } from 'rxjs/operators';
-import { FormGroup, FormArray, FormBuilder, NgForm } from '@angular/forms';
-import { element } from 'protractor';
+import { FormGroup, FormArray, FormBuilder, NgForm, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-risk',
@@ -13,56 +12,44 @@ export class RiskComponent implements OnInit {
 
   loading = false;
   chofererFormGroup: FormGroup;
-  chofer: FormArray;
+  itemsChofer: FormArray;
 
   choferes = null;
 
   constructor(private service: RiskService,
-              private fb: FormBuilder) { }
-
+              private fb: FormBuilder) { }  
+  
   ngOnInit() {
-    debugger;
     
-    
-    this.getFieldConfig();
+    this.chofererFormGroup = this.fb.group({
+      itemsChofer: this.fb.array([]),
+    })
 
+    this.getFieldConfig();    
+  }
+
+  itemsChoferes(): FormArray{
+    return this.chofererFormGroup.get('itemsChofer') as FormArray ; 
   }
 
   getFieldConfig(){
-    debugger;
-
-    
-
+        
     this.loading = true;
     this.service.getChoferes()
     .pipe(finalize(() => this.loading = false))
     .subscribe((resp) => {
 
-      this.choferes = resp;
-
-      this.chofererFormGroup = this.fb.group({
-        chofer: this.fb.array([])
-      })
+      this.choferes = resp;      
 
       this.choferes.forEach(element => {
-        const holderGroup = this.createItem(element);
-        this.chofer.push(holderGroup);
+        this.itemsChofer = this.chofererFormGroup.get('itemsChofer') as FormArray;
+        this.itemsChofer.push(this.createItem(element));
       });
-
-
-
-      console.dir(this.chofer);
-      console.dir(this.chofererFormGroup.get('chofer'));
-      // this.chofererFormGroup = this.fb.group({
-      //   choferes: this.fb.array([this.createItem()])
-      // })
-
-
     });
-
+  
   }
 
-  createItem(item: any): FormGroup {
+  createItem(item: any): FormGroup {    
     return this.fb.group({
       Cuil: item.Cuil,
       Nombre: item.Nombre,
@@ -75,27 +62,16 @@ export class RiskComponent implements OnInit {
     });
   }
 
-  createItemEmpty(): FormGroup {
-    return this.fb.group({
-      Cuil: '',
-      Nombre: '',
-      Apellido: '',
-      Telefono: '',
-      Email: '',
-      Provincia: '',
-      Localidad: '',
-      Domicilio: ''
-    });
+  addQuantity() {
+    let empty: any;
+    this.itemsChoferes().push(this.createItem(empty));
   }
 
-  addItem(item: any): void {
-    this.chofer = this.chofererFormGroup.get('chofer') as FormArray;
-    this.chofer.push(this.createItem(item));
-  }
-
-  save(): void {
-    console.log('Form Status');
-    //console.log('Form Touched', form.touched);        
+  onSubmit(): void {
+    debugger;
+    for(let i = 0; i < this.itemsChofer.length; i++) {
+      console.log(this.itemsChofer.at(i).value);
+    } 
   }
 
 }

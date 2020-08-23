@@ -1,25 +1,125 @@
-
 <div class="content-wrapper full-width">
     <div class="content-table">
         <mat-toolbar class="table-title full-width" color="primary">
             <span>Parametrización de Umbrales</span>
         </mat-toolbar>
         <mat-spinner *ngIf="!choferes" diameter="40" class="mx-auto my-5"></mat-spinner>
-        <form class="form full-width" (submit)="save()" *ngIf="choferes">
-            <div formArrayName="chofer"
-            *ngFor="let item of this.chofererFormGroup.controls; let i = index;">
-            <div [formGroupName]="i">
-                <input formControlName="Cuil" placeholder="Cuil">
-                <input formControlName="Nombre" placeholder="Nombre">
-                <input formControlName="Apellido" placeholder="Apellido">
-                <input formControlName="Telefono" placeholder="Telefono">
-                <input formControlName="Email" placeholder="Email">
-                <input formControlName="Provincia" placeholder="Provincia">
-                <input formControlName="Localidad" placeholder="Localidad">
-                <input formControlName="Domicilio" placeholder="Domicilio">
+        <form class="form full-width" [formGroup]="chofererFormGroup" (ngSubmit)="onSubmit()" *ngIf="choferes">
+            <mat-card>
+            <div class="row" formArrayName="itemsChofer">
+
+                <tr class="col-md-6 col-lg-4 col-xl-3" *ngFor="let quantity of itemsChoferes().controls; let i=index" [formGroupName]="i">          
+                    <td>              
+                        <!-- <mat-form-field class="full-width">
+                            <mat-label>Favorite food</mat-label> -->
+                        <input formControlName="Cuil" placeholder="Cuil">
+                        <!-- <mat-error>
+                            <span>Complete este campo</span>
+                        </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width"> -->
+                            <input formControlName="Nombre" placeholder="Nombre">
+                            <!-- <mat-error>
+                                <span>Complete este campo</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width"> -->
+                            <input formControlName="Apellido" placeholder="Apellido">
+                            <!-- <mat-error>
+                                <span>Complete este campo</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width"> -->
+                            <input formControlName="Telefono" placeholder="Telefono">
+                            <!-- <mat-error>
+                                <span>Complete este campo</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width"> -->
+                            <input formControlName="Email" placeholder="Email">
+                            <!-- <mat-error>
+                                <span>Complete este campo</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width"> -->
+                            <input formControlName="Provincia" placeholder="Provincia">
+                            <!-- <mat-error>
+                                <span>Complete este campo</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width"> -->
+                            <input formControlName="Localidad" placeholder="Localidad">
+                            <!-- <mat-error>
+                                <span>Complete este campo</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width"> -->
+                            <input formControlName="Domicilio" placeholder="Domicilio">
+                            <!-- <mat-error>
+                                <span>Complete este campo</span>
+                            </mat-error>
+                        </mat-form-field> -->
+                    </td>          
+                  </tr>
+                  {{this.chofererFormGroup.value.itemsChofer | json}}
+
+                <!-- <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let item of itemsChoferes().controls;  let i=index;" [formGroupName]="i">
+                    <mat-form-field class="full-width">
+                            <input formControlName="Cuil" placeholder="Cuil">
+                            <input formControlName="Nombre" placeholder="Nombre">
+                            <input formControlName="Apellido" placeholder="Apellido">
+                            <input formControlName="Telefono" placeholder="Telefono">
+                            <input formControlName="Email" placeholder="Email">
+                            <input formControlName="Provincia" placeholder="Provincia">
+                            <input formControlName="Localidad" placeholder="Localidad">
+                            <input formControlName="Domicilio" placeholder="Domicilio">
+                        <mat-error>
+                            <span>Complete este campo</span>
+                        </mat-error>
+                    </mat-form-field>   
+                    {{this.chofererFormGroup.value.itemsChofer | json}}
+                </div> -->
             </div>
-            <!-- Chosen name: {{ chofererFormGroup.controls.items.controls[i].controls.name.value }} -->
-        </div>
-    </form>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </mat-card>
+        </form>        
+    </div>
 </div>
-</div>
+
+<!-- <div class="container">
+  
+    <h1>Angular FormArray Example - ItSolutionStuff.com</h1>
+    
+    <form [formGroup]="chofererFormGroup" (ngSubmit)="onSubmit()">
+      
+      <p>
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" name="name" formControlName="name" class="form-control">
+      </p>
+    
+      <table class="table table-bordered" formArrayName="itemsChofer">
+        <tr>
+          <th colspan="2">Add Multiple Quantity:</th>
+          <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button></th>
+        </tr>
+        <tr *ngFor="let quantity of itemsChoferes().controls; let i=index" [formGroupName]="i">          
+          <td>              
+              <input formControlName="Cuil" placeholder="Cuil">
+                         <input formControlName="Nombre" placeholder="Nombre">
+                        <input formControlName="Apellido" placeholder="Apellido">
+                        <input formControlName="Telefono" placeholder="Telefono">
+                        <input formControlName="Email" placeholder="Email">
+                        <input formControlName="Provincia" placeholder="Provincia">
+                        <input formControlName="Localidad" placeholder="Localidad">
+                        <input formControlName="Domicilio" placeholder="Domicilio">
+          </td>          
+        </tr>
+      </table>     
+      <button type="submit" class="btn btn-success">Submit</button>      
+    </form>      
+    <br/>
+    {{this.chofererFormGroup.value.itemsChofer | json}}    
+  </div> -->
+
+
+

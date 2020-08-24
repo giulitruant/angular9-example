@@ -23,7 +23,7 @@ export class RiskComponent implements OnInit {
     
     this.chofererFormGroup = this.fb.group({
       itemsChofer: this.fb.array([]),
-    })
+    });
 
     this.getFieldConfig();    
   }

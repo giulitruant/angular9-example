@@ -15,6 +15,7 @@ import { TodoFooterComponent } from './todo-footer/todo-footer.component';
 import { StatsComponent } from './stats/stats.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RiskComponent } from './risk/risk.component';
+import { PruebaArrayCompComponent } from './prueba-array-comp/prueba-array-comp.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { RiskComponent } from './risk/risk.component';
     TodoFooterComponent,
     StatsComponent,
     RiskComponent,
+    PruebaArrayCompComponent,
   ],
   imports: [
     BrowserModule,

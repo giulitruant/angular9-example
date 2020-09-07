@@ -12,81 +12,9 @@
                     <mat-form-field appearance="fill">
     <mat-label>Input</mat-label>
     <input matInput formControlName="Cuil" placeholder="Cuil">
-  </mat-form-field>
-                    <!-- <mat-form-field class="example-full-width">
-                        <mat-label>Cuil</mat-label>
-                        <input formControlName="Cuil" placeholder="Cuil">
-                    </mat-form-field>        -->
-                    <!-- <td>              
-                        <mat-form-field class="full-width">
-                            <mat-label>Favorite food</mat-label>
-                        <input formControlName="Cuil" placeholder="Cuil">
-                        <mat-error>
-                            <span>Complete este campo</span>
-                        </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width">
-                            <input formControlName="Nombre" placeholder="Nombre">
-                            <mat-error>
-                                <span>Complete este campo</span>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width">
-                            <input formControlName="Apellido" placeholder="Apellido">
-                            <mat-error>
-                                <span>Complete este campo</span>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width"> 
-                            <input formControlName="Telefono" placeholder="Telefono">
-                            <mat-error>
-                                <span>Complete este campo</span>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width"> 
-                            <input formControlName="Email" placeholder="Email">
-                            <mat-error>
-                                <span>Complete este campo</span>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width">
-                            <input formControlName="Provincia" placeholder="Provincia">
-                            <mat-error>
-                                <span>Complete este campo</span>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width">
-                            <input formControlName="Localidad" placeholder="Localidad">
-                            <mat-error>
-                                <span>Complete este campo</span>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field class="full-width">
-                            <input formControlName="Domicilio" placeholder="Domicilio">
-                            <mat-error>
-                                <span>Complete este campo</span>
-                            </mat-error>
-                        </mat-form-field> 
-                    </td>          -->
+  </mat-form-field>                
                 </div>
-                  {{this.chofererFormGroup.value.itemsChofer | json}}
-
-                <!-- <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let item of itemsChoferes().controls;  let i=index;" [formGroupName]="i">
-                    <mat-form-field class="full-width">
-                            <input formControlName="Cuil" placeholder="Cuil">
-                            <input formControlName="Nombre" placeholder="Nombre">
-                            <input formControlName="Apellido" placeholder="Apellido">
-                            <input formControlName="Telefono" placeholder="Telefono">
-                            <input formControlName="Email" placeholder="Email">
-                            <input formControlName="Provincia" placeholder="Provincia">
-                            <input formControlName="Localidad" placeholder="Localidad">
-                            <input formControlName="Domicilio" placeholder="Domicilio">
-                        <mat-error>
-                            <span>Complete este campo</span>
-                        </mat-error>
-                    </mat-form-field>   
-                    {{this.chofererFormGroup.value.itemsChofer | json}}
-                </div> -->
+                  {{this.chofererFormGroup.value.itemsChofer | json}}              
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </mat-card>

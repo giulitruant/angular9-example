@@ -1,33 +1,15 @@
-<form class="list" [formGroup]="form">
-  <div formArrayName="itemArray">
-    <ul *ngFor="let item of ItemFormA().controls; let i=index">
-      <li [formGroupName]="i" >
-        <input matInput formControlName="descripcion">
-        <input matInput formControlName="url">
-        <a>{{ i }}</a>
-
-        <!-- <mat-label formControlName="description"></mat-label>
-        <mat-label formControlName="url"></mat-label> -->
+  <div class="list">  
+    <ul *ngFor="let item of list" >
+      <li>
+        <mat-label>{{item.description}}</mat-label>
+        <mat-label>{{item.url}}</mat-label>        
         <span>
-          <button class="btn btn-danger" (click)="removeItem(i)">X</button>
-          <button class="btn btn-info" (click)="editTask(i)">Editar</button>
-          <button class="btn btn-success" (click)="completeTask(i)">V</button>
+          <button class="btn btn-danger" (click)="removeItem(item.id)">X</button>
+          <button class="btn btn-info" (click)="editTask(item)">Editar</button>
+          <button class="btn btn-success" (click)="completeTask(item.id)">V</button>
         </span>
       </li>
     </ul>
-  </div>
-</form>
-
- <!-- <li *ngFor="let task of list" [class.completed] = "task.isCompleted"
-        class="list-item">
-        <mat-label>{{task.description}}</mat-label>
-        <mat-label>{{task.url}}</mat-label>
-        <span>
-          <button class="btn btn-danger" (click)="removeItem(task.id)">X</button>
-          <button class="btn btn-info" (click)="editTask(task)">Editar</button>
-          <button class="btn btn-success" (click)="completeTask(task)">V</button>
-        </span>
-      </li> -->
-
+  </div> 
 
 <!-- <app-todo-form [item]="getItem()" ></app-todo-form> -->

@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { TodoItem, TodoItemComponent } from '../model/todo-item';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import { TodoItem } from '../model/todo-item';
 import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -7,42 +7,40 @@ import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.scss']
 })
-export class TodoFormComponent implements OnInit{
+export class TodoFormComponent implements OnChanges{
 
   @Output() add = new EventEmitter();
-  itemE: FormGroup;
+  @Input() itemE: TodoItem = null;
+  form = new FormGroup({
+    id: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
+    isCompleted: new FormControl(''),
+    url: new FormControl('', [Validators.required, urlValidator])
+  });
 
   constructor(private fb: FormBuilder){ }
 
-  ngOnInit(){
-    debugger;
-
-    this.itemE = this.fb.group({
-      id: [''],
-      description: ['', Validators.required],
-      isCompleted: [''],
-      url: ['', Validators.required]
-    });
+  ngOnChanges(){
+    if(this.itemE){
+      this.form.patchValue(this.itemE);
+    }
 
   }
 
   onSubmit() {
     debugger;
-
-    if(this.itemE.invalid){
+    if(this.form.invalid){
       return;
-    }
 
-    console.dir(this.itemE.value);
-    console.dir(this.itemE);
+    }    
 
-    this.add.emit(this.itemE.value);
+    this.add.emit(this.form.value);
     this.initialize();
 
   }
 
   initialize() {
-    this.itemE.reset();
+    this.form.reset();
 
   }
 }

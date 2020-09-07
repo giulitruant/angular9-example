@@ -1,7 +1,7 @@
 <br>
 <br>
 <div>
-  <form [formGroup]="itemE" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <label>
     Descripción:
     <input formControlName="description">
@@ -10,7 +10,7 @@
     Url:
     <input formControlName="url">
   </label>
-  <button type="submit" [disabled]="!itemE.valid">Guardar</button>
+  <button type="submit" [disabled]="!form.valid">Guardar</button>
   <button type="button" (click)="initialize()" >Reset</button>
 </form>
 </div>

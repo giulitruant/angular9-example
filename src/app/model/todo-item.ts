@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 export class TodoItem {
   id: number;
@@ -11,11 +11,13 @@ export class TodoItem {
   }
 }
 
-export class TodoItemComponent{
-  todoItemForm = new FormGroup({
+export class TodoItemComponent {
+  itemForm = this.fb.group({
     id: new FormControl(''),
     description: new FormControl('', [Validators.required]),
-    //isCompleted: new FormControl('', [Validators.required]),
+    isCompleted: new FormControl(''),
     url: new FormControl('', [Validators.required])
   });
+
+  constructor(private fb: FormBuilder) { }
 }

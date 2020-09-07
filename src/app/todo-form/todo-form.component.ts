@@ -1,33 +1,48 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { TodoItem, TodoItemComponent } from '../model/todo-item';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.scss']
 })
-export class TodoFormComponent {
-  
-  @Output() add = new EventEmitter();  
-  @Input() edit = new EventEmitter();
-  todoItemForm = new FormGroup({
-    description: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    url: new FormControl('', [Validators.required, urlValidator]),
-  });
+export class TodoFormComponent implements OnInit{
 
-  constructor(){
-    //this.todoItemForm.valueChanges.subscribe(value => console.log(value));
+  @Output() add = new EventEmitter();
+  itemE: FormGroup;
+
+  constructor(private fb: FormBuilder){ }
+
+  ngOnInit(){
+    debugger;
+
+    this.itemE = this.fb.group({
+      id: [''],
+      description: ['', Validators.required],
+      isCompleted: [''],
+      url: ['', Validators.required]
+    });
 
   }
 
   onSubmit() {
-    this.add.emit(this.todoItemForm.value);
+    debugger;
+
+    if(this.itemE.invalid){
+      return;
+    }
+
+    console.dir(this.itemE.value);
+    console.dir(this.itemE);
+
+    this.add.emit(this.itemE.value);
+    this.initialize();
 
   }
 
   initialize() {
-    this.todoItemForm.reset();
+    this.itemE.reset();
 
   }
 }

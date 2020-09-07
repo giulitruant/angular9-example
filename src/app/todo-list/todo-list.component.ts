@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { TodoItem, TodoItemComponent } from '../model/todo-item';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list',
@@ -8,10 +8,11 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-  @Input() list: any[];
+  @Input() form: FormGroup;
   @Output() itemRemoved = new EventEmitter();
   @Output() itemStateChanged = new EventEmitter();
   @Output() itemEdit = new EventEmitter();
+  item: TodoItem;
   constructor() { }
 
   ngOnInit() {
@@ -25,9 +26,21 @@ export class TodoListComponent implements OnInit {
 
   }
 
-  editTask(item: TodoItemComponent){
-    this.itemEdit.emit(item);
-    
+  editTask(item: TodoItem){
+    debugger;
+    this.item = item;
+    //this.itemEdit.emit(item);
+
+  }
+
+  getItem(){
+    return this.item;
+  }
+
+  ItemFormA(): FormArray {
+    debugger;
+    return this.form.get('itemArray') as FormArray;
+
   }
 
 }

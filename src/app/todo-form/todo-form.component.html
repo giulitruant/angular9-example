@@ -1,16 +1,16 @@
 <br>
 <br>
 <div>
-  <form [formGroup]="todoItemForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="itemE" (ngSubmit)="onSubmit()">
   <label>
     Descripción:
-    <input type="text" formControlName="description">
+    <input formControlName="description">
   </label>
   <label>
     Url:
-    <input type="text" formControlName="url">
+    <input formControlName="url">
   </label>
-  <button type="submit" [disabled]="!todoItemForm.valid">Guardar</button>
+  <button type="submit" [disabled]="!itemE.valid">Guardar</button>
   <button type="button" (click)="initialize()" >Reset</button>
 </form>
 </div>
@@ -29,7 +29,7 @@
   <label>
     Descripción:
     <input type="text" formcontrolname="description">
-  </label>  
+  </label>
 <button type="submit" [disabled]="!todoItemForm.valid">Crear</button>
 </form>
 -->

@@ -27,6 +27,6 @@ export class TodoListComponent {
   editTask(item: TodoItem){
     debugger;
     this.itemEdit.emit(item);
-  }
+  } 
 
 }

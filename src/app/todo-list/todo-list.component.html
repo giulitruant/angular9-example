@@ -1,15 +1,17 @@
-  <div class="list">  
-    <ul *ngFor="let item of list" >
-      <li>
+    <mat-selection-list>
+    <div class="row" *ngFor="let item of list" >
+      <div class="col-md-6 col-lg-4 col-xl-3">
         <mat-label>{{item.description}}</mat-label>
-        <mat-label>{{item.url}}</mat-label>        
-        <span>
-          <button class="btn btn-danger" (click)="removeItem(item.id)">X</button>
-          <button class="btn btn-info" (click)="editTask(item)">Editar</button>
-          <button class="btn btn-success" (click)="completeTask(item.id)">V</button>
-        </span>
-      </li>
-    </ul>
-  </div> 
-
-<!-- <app-todo-form [item]="getItem()" ></app-todo-form> -->
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-label>{{item.url}}</mat-label>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-checkbox [checked]="item.isCompleted" (change)="completeTask(item)"></mat-checkbox>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <button class="btn btn-danger" (click)="removeItem(item.id)">X</button>
+        <button class="btn btn-info" (click)="editTask(item)">Editar</button>        
+      </div>
+    </div>
+  </mat-selection-list>

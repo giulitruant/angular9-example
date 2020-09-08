@@ -2,35 +2,21 @@
 <br>
 <div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label>
-    Descripción:
-    <input formControlName="description">
-  </label>
-  <label>
-    Url:
-    <input formControlName="url">
-  </label>
-  <button type="submit" [disabled]="!form.valid">Guardar</button>
-  <button type="button" (click)="initialize()" >Reset</button>
-</form>
+    <div class="row">
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-form-field appearence="fill">
+          <mat-label>Descripción</mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xl-3">
+        <mat-form-field appearence="fill">
+          <mat-label>Url</mat-label>
+          <input matInput formControlName="url">
+        </mat-form-field>
+        <button type="submit" [disabled]="!form.valid">Guardar</button>
+        <button type="button" (click)="initialize()">Reset</button>
+      </div>
+    </div>
+  </form>
 </div>
-
-<!--
-<div>
-  <div>
-    Valido {{todoItemForm.valid}}
-
-  </div>
-  Touched {{todoItemForm.touched}}
-</div>
-
-
-<form [formGroup]="todoItemForm" (ngSubmit)="onSubmit()">
-  <label>
-    Descripción:
-    <input type="text" formcontrolname="description">
-  </label>
-<button type="submit" [disabled]="!todoItemForm.valid">Crear</button>
-</form>
--->
-

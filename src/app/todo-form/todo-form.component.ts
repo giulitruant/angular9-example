@@ -14,7 +14,7 @@ export class TodoFormComponent implements OnChanges{
   form = new FormGroup({
     id: new FormControl(''),
     description: new FormControl('', [Validators.required]),
-    isCompleted: new FormControl(''),
+    isCompleted: new FormControl(false),
     url: new FormControl('', [Validators.required, urlValidator])
   });
 
@@ -46,9 +46,12 @@ export class TodoFormComponent implements OnChanges{
 }
 
 export function urlValidator(control: AbstractControl) {
-  if (!control.value.startsWith('http') || !control.value.includes('.com')) {
-    return { startsWithA: true };
-  }
+  debugger;
+  if(control.value && control.value !== undefined){
+    if (!control.value.startsWith('https') || !control.value.includes('.com')) {
+      return { validUrl: true };
+    }    
+  }  
   return null;
 
 }

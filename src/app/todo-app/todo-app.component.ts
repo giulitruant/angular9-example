@@ -39,7 +39,8 @@ export class TodoAppComponent implements OnInit {
   }
 
   onItemStateChanged(item: TodoItem) {
-    item.toggleCompleted();    
+    debugger
+    item.isCompleted = !item.isCompleted;
 
   }
 
@@ -53,5 +54,10 @@ export class TodoAppComponent implements OnInit {
     this.service.add(task);
 
   } 
+
+  onSubmit(){
+    this.service.guardar();
+
+  }
 
 }

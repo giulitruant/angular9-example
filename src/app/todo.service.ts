@@ -51,4 +51,9 @@ export class TodoService {
     return 'TodoService 123' + this.storage.getName();
   }
 
+  guardar(){
+    this.storage.save(this.list);
+
+  }
+
 }

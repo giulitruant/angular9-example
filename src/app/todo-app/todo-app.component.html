@@ -1,7 +1,6 @@
 <app-todo-form
 (add)="onTodoItemCreated($event)"
-[itemE]="this.item"
->
+[itemE]="this.item">
 </app-todo-form>
 <app-todo-list
   [list]="getList()"
@@ -15,3 +14,5 @@
 >
 </app-todo-footer>
 <app-stats></app-stats>
+
+<button class="btn btn-success" type="button" (click)="onSubmit()">Guardar</button>

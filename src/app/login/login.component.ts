@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { AuthService } from '../core/authentication/auth.service';
+import { AlertService } from '../core/http/model/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private service: AuthService
+    private router: Router,
+    private serviceAuthentication: AuthService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -39,16 +42,19 @@ export class LoginComponent implements OnInit {
       }
     };
 
-    this.service.getUser(args)
+    this.serviceAuthentication.login(args)
       .toPromise().then((res: any) => {
         this.loading = false;
         this.user = res;
 
+        this.router.navigate(['']);
 
       })
-      .catch((error) => console.dir(error));
+      .catch((error) => {
+        this.alertService.error(error);
+        this.loading = false;
+      });
 
   }
-
 
 }

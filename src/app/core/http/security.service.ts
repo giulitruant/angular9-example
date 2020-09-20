@@ -16,17 +16,34 @@ export class SecurityService {
     return this.configService.getConfig().rootUrl;
   }
 
-  constructor(private http: HttpClient,
-    private configService: AppConfigService) {
+  constructor(
+    private configService: AppConfigService,
+    private http: HttpClient
+    ) {
   }
 
-  authenticate(user: User): Observable<TokenResponse> {
-    const body = `client_id=QBS&grant_type=password&username=${user.username}&password=${user.password}`;
-    var url = this.rootUrl + 'authenticate';
+  login(user: User): Observable<User> {
 
-    let httpOptions = {
+    const args = {
+      email: user.email,
+      password: user.password
+    };
+
+    return this.http.post(this.rootUrl + '/users/login', args).pipe(map((res: User) => {
+      return res;
+    }));
+
+  }
+
+  refresh(refreshToken: string, token: string): Observable<TokenResponse> {
+    const body = `client_id=QBS&grant_type=refresh_token&refresh_token=${refreshToken}`;
+    const url = this.rootUrl + 'authenticate';
+
+    const httpOptions = {
       headers: new HttpHeaders({'Content-Type':  'application/x-www-form-urlencoded'})
     };
+
+    httpOptions.headers.append('Authorization', `Bearer ${token}`);
 
     return this.http.post(url, body, httpOptions)
       .pipe(map((res: TokenResponse) => {
@@ -34,26 +51,13 @@ export class SecurityService {
       }));
   }
 
-  refresh(refreshToken: string, token: string): Observable<TokenResponse> {
-    const body = `client_id=QBS&grant_type=refresh_token&refresh_token=${refreshToken}`;
-    var url = this.rootUrl + 'authenticate';
-
-    let httpOptions = {
-      headers: new HttpHeaders({'Content-Type':  'application/x-www-form-urlencoded'})
-    };
-
-    httpOptions.headers.append('Authorization', `Bearer ${token}`)
-
-    return this.http.post(url, body, httpOptions)
-      .pipe(map((res: TokenResponse) => {
-        return res 
-      }));
-  }
-
   user(userId: string): Observable<any> {
 
-    if (!userId) return;
-    
+    if (!userId){
+      return;
+
+    }
+
     return this.http.get(`${this.rootUrl}user/${userId}`)
       .pipe(res => {
         return res;

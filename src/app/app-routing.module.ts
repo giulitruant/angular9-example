@@ -7,12 +7,13 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 
 
 const routes: Routes = [
-  {
-    path: '',
-    canActivate: [AuthGuard],
-  },
+  // {
+  //   path: '',
+  //   canActivate: [AuthGuard],
+  // },
   { path: 'login', component: LoginComponent },
   { path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard] },
+  { path: '',  redirectTo: 'login', pathMatch: 'full' },
 
 ];
 

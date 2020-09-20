@@ -29,11 +29,9 @@ export class AuthService {
 
   }
 
-  getUser(username, password){
-    return this.http.post(this.apiUrl + 'users/login', {
-      username,
-      password
-    });
+  getUser(args: { user: { email: string, password: string } }){
+
+    return this.http.post(this.apiUrl + 'users/login', args);
   }
 
 }

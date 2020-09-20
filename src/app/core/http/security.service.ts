@@ -66,7 +66,7 @@ export class SecurityService {
 
   changePassword(changePassword: ChangePasswordModel): Observable<any> {
 
-    return this.http.post(this.rootUrl + "changePassword", {
+    return this.http.post(this.rootUrl + 'changePassword', {
       Password: changePassword.password,
       NewPassword: changePassword.newPassword
     })

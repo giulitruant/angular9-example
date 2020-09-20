@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { finalize } from 'rxjs/operators';
+import { AuthService } from '../core/authentication/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,23 +10,43 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  form = new FormGroup({
-    user : new FormControl('', Validators.required),
-    pass : new FormControl('', Validators.required)
-  })
+  user: any;
+  loading: boolean;
 
-  constructor() { }
+  form = new FormGroup({
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  });
+
+  constructor(
+    private service: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
 
-  submit(){
-    if(this.form.invalid)
-    {
+  onSubmit() {
+    if (this.form.invalid) {
       return;
     }
 
-    console.dir(this.form.value);
+    this.loading = true;
+
+    const args = {
+      user: {
+        email: this.form.get('email').value,
+        password: this.form.get('password').value
+      }
+    };
+
+    this.service.getUser(args)
+      .toPromise().then((res: any) => {
+        this.loading = false;
+        this.user = res;
+
+
+      })
+      .catch((error) => console.dir(error));
 
   }
 

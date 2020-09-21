@@ -57,5 +57,9 @@ export class LoginComponent implements OnInit {
         this.loading = false;
       });
 
+        this.router.navigate(['']);
+        this.alertService.error(error);
+        this.loading = false;
+      });
   }
 }

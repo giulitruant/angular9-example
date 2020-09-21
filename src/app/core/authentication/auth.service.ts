@@ -4,16 +4,19 @@ import { SecurityService } from '../http/security.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
+import { AppConfigService } from '../http/app-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private currentUserSubject: BehaviorSubject<User>;
+    public currentUser: Observable<User>;
 
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<User>;
 
-  private apiUrl = 'https://conduit.productionready.io/api/';
+  //private apiUrl = 'https://conduit.productionready.io/api/';
   private loggedInStatus = JSON.parse(localStorage.getItem('currentUser') || 'false');
 
   constructor(
@@ -36,10 +39,21 @@ export class AuthService {
 
   get isLoggedIn() {
     return JSON.parse(localStorage.getItem('currentUser') || this.loggedInStatus);
+}
 
-  }
+  login(args: { user: { email: string, password: string } }){
+
+    return this.http.post<any>(this.apiUrl + 'users/login', args)
+    .pipe(map(user => {
+      if(user && user.token){
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        return user;
+
+      }
 
   getUser(args: { user: { email: string, password: string } }) {
+    }));
+  }
 
     return this.http.post<any>(this.apiUrl + 'users/login', args)
     .pipe(map( resp => {
@@ -52,7 +66,8 @@ export class AuthService {
       return resp.user;
 
     }));
-  }
+}
+
 
   logout() {
     // remove user from local storage to log user out

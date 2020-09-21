@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+<<<<<<< HEAD
+import { finalize, first } from 'rxjs/operators';
+import { AuthService } from '../core/authentication/auth.service';
+import { User } from '../core/authentication/user.model';
+import { AlertService } from '../core/http/alert.service';
+=======
+import { AuthService } from '../core/authentication/auth.service';
+import { AlertService } from '../core/http/model/alert.service';
+>>>>>>> 51e27a1aea965b5475b8fc659d77c841e2e0dd56
 
 @Component({
   selector: 'app-login',
@@ -8,25 +18,71 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  form = new FormGroup({
-    user : new FormControl('', Validators.required),
-    pass : new FormControl('', Validators.required)
-  })
+  user: User;
+  loading: boolean;
 
-  constructor() { }
+  form = new FormGroup({
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  });
+
+  constructor(
+    private router: Router,
+<<<<<<< HEAD
+    private service: AuthService,
+=======
+    private serviceAuthentication: AuthService,
+>>>>>>> 51e27a1aea965b5475b8fc659d77c841e2e0dd56
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
   }
 
-  submit(){
-    if(this.form.invalid)
-    {
+  onSubmit() {
+    if (this.form.invalid) {
       return;
     }
 
-    console.dir(this.form.value);
+    this.loading = true;
+
+    const args = {
+      user : {
+        email : this.form.get('email').value,
+        password : this.form.get('password').value,
+      }
+    };
+
+<<<<<<< HEAD
+    debugger;
+    this.service.getUser(args).subscribe(
+      data => {
+        if (data && data !== undefined){
+          console.dir(data);
+          this.router.navigate(['/article/home']);
+        }
+    },
+    error => {
+        this.alertService.error(error);
+        this.loading = false;
+      });
+
+  }
+=======
+    this.serviceAuthentication.login(args)
+      .toPromise().then((res: any) => {
+        this.loading = false;
+        this.user = res;
+
+        this.router.navigate(['']);
+
+      })
+      .catch((error) => {
+        this.alertService.error(error);
+        this.loading = false;
+      });
 
   }
 
-
+>>>>>>> 51e27a1aea965b5475b8fc659d77c841e2e0dd56
 }

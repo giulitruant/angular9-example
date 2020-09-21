@@ -12,23 +12,19 @@ import { map } from 'rxjs/operators';
 })
 export class SecurityService {
 
-  get rootUrl(){
-    return this.configService.getConfig().rootUrl;
+  get rootUrl() {
+    //return this.configService.getConfig().rootUrl;
+    return 'https://conduit.productionready.io/api';
   }
 
   constructor(
     private configService: AppConfigService,
     private http: HttpClient
-    ) {
+  ) {
   }
 
-  login(user: User): Observable<User> {
-
-    const args = {
-      email: user.email,
-      password: user.password
-    };
-
+  login(args: { user: { email: string, password: string } }): Observable<User> {
+    debugger;
     return this.http.post(this.rootUrl + '/users/login', args).pipe(map((res: User) => {
       return res;
     }));
@@ -40,7 +36,7 @@ export class SecurityService {
     const url = this.rootUrl + 'authenticate';
 
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type':  'application/x-www-form-urlencoded'})
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
     };
 
     httpOptions.headers.append('Authorization', `Bearer ${token}`);
@@ -53,7 +49,7 @@ export class SecurityService {
 
   user(userId: string): Observable<any> {
 
-    if (!userId){
+    if (!userId) {
       return;
 
     }

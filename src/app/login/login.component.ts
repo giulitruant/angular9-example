@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { finalize, first } from 'rxjs/operators';
 import { AuthService } from '../core/authentication/auth.service';
+import { User } from '../core/authentication/user.model';
+import { AlertService } from '../core/http/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,7 @@ import { AuthService } from '../core/authentication/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  user: any;
+  user: User;
   loading: boolean;
 
   form = new FormGroup({
@@ -19,7 +22,9 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private service: AuthService
+    private router: Router,
+    private service: AuthService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -33,22 +38,24 @@ export class LoginComponent implements OnInit {
     this.loading = true;
 
     const args = {
-      user: {
-        email: this.form.get('email').value,
-        password: this.form.get('password').value
+      user : {
+        email : this.form.get('email').value,
+        password : this.form.get('password').value,
       }
     };
 
-    this.service.getUser(args)
-      .toPromise().then((res: any) => {
+    debugger;
+    this.service.getUser(args).subscribe(
+      data => {
+        if (data && data !== undefined){
+          console.dir(data);
+          this.router.navigate(['/article/home']);
+        }
+    },
+    error => {
+        this.alertService.error(error);
         this.loading = false;
-        this.user = res;
-
-
-      })
-      .catch((error) => console.dir(error));
+      });
 
   }
-
-
 }

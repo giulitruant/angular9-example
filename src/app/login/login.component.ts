@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize, first } from 'rxjs/operators';
-import { AuthService } from '../core/authentication/auth.service';
+import { AuthenticationService } from '../core/authentication/authentication.service';
 import { User } from '../core/authentication/user.model';
 import { AlertService } from '../core/http/alert.service';
 
@@ -23,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: AuthService,
+    private authService: AuthenticationService,
     private alertService: AlertService
   ) { }
 
@@ -44,8 +43,7 @@ export class LoginComponent implements OnInit {
       }
     };
 
-    debugger;
-    this.service.getUser(args).subscribe(
+    this.authService.login(args).subscribe(
       data => {
         if (data && data !== undefined){
           console.dir(data);
@@ -57,9 +55,8 @@ export class LoginComponent implements OnInit {
         this.loading = false;
       });
 
-        this.router.navigate(['']);
-        this.alertService.error(error);
-        this.loading = false;
-      });
-  }
+        // this.router.navigate(['']);
+        // this.alertService.error(error);
+        // this.loading = false;
+      }
 }

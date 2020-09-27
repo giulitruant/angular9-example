@@ -10,13 +10,10 @@ import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-
 import { AddCommentComponent } from './modules/comment/pages/add-comment/add-comment.component';
 import { EditCommentComponent } from './modules/comment/pages/edit-comment/edit-comment.component';
 
-
-
 const routes: Routes = [
-  { path: '', component: LoginComponent, canActivate: [AuthGuard] },
+  { path: '', component: LoginComponent , canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'change-password', component: ChangePasswordComponent },
-  // { path: '', redirectTo: 'login' },
   {
     path: 'article',
     canActivate: [AuthGuard],
@@ -56,8 +53,4 @@ const routes: Routes = [
 
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+export const appRoutingModule = RouterModule.forRoot(routes);

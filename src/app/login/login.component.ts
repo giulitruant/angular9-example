@@ -37,26 +37,22 @@ export class LoginComponent implements OnInit {
     this.loading = true;
 
     const args = {
-      user : {
-        email : this.form.get('email').value,
-        password : this.form.get('password').value,
+      user: {
+        email: this.form.get('email').value,
+        password: this.form.get('password').value,
       }
     };
 
     this.authService.login(args).subscribe(
       data => {
-        if (data && data !== undefined){
+        if (data && data !== undefined) {
           console.dir(data);
-          this.router.navigate(['/article/home']);
+          this.router.navigate(['/article/']);
         }
-    },
-    error => {
+      },
+      error => {
         this.alertService.error(error);
         this.loading = false;
       });
-
-        // this.router.navigate(['']);
-        // this.alertService.error(error);
-        // this.loading = false;
-      }
+  }
 }

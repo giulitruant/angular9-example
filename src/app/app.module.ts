@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { appRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,11 @@ import { EditArticleComponent } from './modules/articles/pages/edit-article/edit
 import { EditCommentComponent } from './modules/comment/pages/edit-comment/edit-comment.component';
 import { AddCommentComponent } from './modules/comment/pages/add-comment/add-comment.component';
 import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-comment.component';
+import { AppConfigService } from './core/http/app-config.service';
+
+const appInitializerFn = (appConfig: AppConfigService) => {
+  return () => appConfig.loadAppConfig();
+};
 
 @NgModule({
   declarations: [
@@ -34,7 +39,13 @@ import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-
     HttpClientModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [{
+    provide: APP_INITIALIZER,
+    useFactory: appInitializerFn,
+    multi: true,
+    deps: [AppConfigService]
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

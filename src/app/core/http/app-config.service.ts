@@ -1,6 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,31 +14,26 @@ export class AppConfigService {
   }
 
   loadAppConfig() {
+    return this.loadMainConfig();
 
-    if (environment.production) {
-      return this.loadMainConfig();
-    }
-
-    return this.loadUserConfig();
   }
 
   getConfig() {
     return this.appConfig;
+
+  }
+
+  public getJSON(): Observable<any> {
+    return this.http.get('app.config.json');
+
   }
 
   private loadMainConfig() {
-    return this.http.get('app.config.json')
-      .toPromise()
-      .then(data => {
-        this.appConfig = data;
-      });
-  }
+    return this.getJSON()
+    .toPromise()
+    .then(data => {
+      this.appConfig = data;
+    });
 
-  private loadUserConfig() {
-    return this.http.get('app.config.json.user')
-      .toPromise()
-      .then(data => {
-        this.appConfig = data;
-      }).catch(() => this.loadMainConfig());
   }
 }

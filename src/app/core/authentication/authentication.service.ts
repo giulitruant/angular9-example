@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AppConfigService } from '../http/app-config.service';
 import { User } from './user.model';
 
 @Injectable({
@@ -12,10 +13,13 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  private apiUrl = 'https://conduit.productionready.io/api';
+  private get apiUrl(){
+    return this.appConfig.getConfig().rootApiUrl;
+  }
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private appConfig: AppConfigService
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();

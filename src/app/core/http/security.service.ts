@@ -13,8 +13,7 @@ import { map } from 'rxjs/operators';
 export class SecurityService {
 
   get rootUrl() {
-    //return this.configService.getConfig().rootUrl;
-    return 'https://conduit.productionready.io/api';
+    return this.configService.getConfig().rootApiUrl;
   }
 
   constructor(
@@ -24,7 +23,6 @@ export class SecurityService {
   }
 
   login(args: { user: { email: string, password: string } }): Observable<User> {
-    debugger;
     return this.http.post(this.rootUrl + '/users/login', args).pipe(map((res: User) => {
       return res;
     }));

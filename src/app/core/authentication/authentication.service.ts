@@ -49,4 +49,19 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
   }
 
+  isLogged(): any{
+
+    return this.currentUser;
+    
+    // this.currentUser.toPromise()
+    // .then(res => {
+    //   if(res && res !== undefined){
+    //     return true;
+    //   }else{
+    //     return false;
+    //   }
+
+    // },(error) => { return false; });
+  }
+
 }

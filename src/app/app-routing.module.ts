@@ -9,47 +9,55 @@ import { EditArticleComponent } from './modules/articles/pages/edit-article/edit
 import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-comment.component';
 import { AddCommentComponent } from './modules/comment/pages/add-comment/add-comment.component';
 import { EditCommentComponent } from './modules/comment/pages/edit-comment/edit-comment.component';
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent , canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'change-password', component: ChangePasswordComponent },
   {
-    path: 'article',
-    canActivate: [AuthGuard],
+    path: 'dashboard',
+    component: HeaderComponent,
     children: [
       {
-        path: 'home', component: HomeArticleComponent, pathMatch: 'full'
+        path: 'article',
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'home', component: HomeArticleComponent, pathMatch: 'full'
+          },
+          {
+            path: 'add', component: AddArticleComponent, pathMatch: 'full'
+          },
+          {
+            path: 'edit/:id', component: EditArticleComponent, pathMatch: 'full'
+          },
+          {
+            path: '', redirectTo: 'home', pathMatch: 'full'
+          }
+        ]
       },
       {
-        path: 'add', component: AddArticleComponent, pathMatch: 'full'
-      },
-      {
-        path: 'edit/:id', component: EditArticleComponent, pathMatch: 'full'
-      },
-      {
-        path: '', redirectTo: 'home', pathMatch: 'full'
+        path: 'comment',
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'home', component: HomeCommentComponent, pathMatch: 'full'
+          },
+          {
+            path: 'add', component: AddCommentComponent, pathMatch: 'full'
+          },
+          {
+            path: 'edit/:id', component: EditCommentComponent, pathMatch: 'full'
+          },
+          {
+            path: '', redirectTo: 'home', pathMatch: 'full'
+          }
+        ]
       }
     ]
   },
-  {
-    path: 'comment',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'home', component: HomeCommentComponent, pathMatch: 'full'
-      },
-      {
-        path: 'add', component: AddCommentComponent, pathMatch: 'full'
-      },
-      {
-        path: 'edit/:id', component: EditCommentComponent, pathMatch: 'full'
-      },
-      {
-        path: '', redirectTo: 'home', pathMatch: 'full'
-      }
-    ]
-  }
+  
 
 ];
 

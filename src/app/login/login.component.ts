@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       data => {
         if (data && data !== undefined) {
           console.dir(data);
-          this.router.navigate(['/article/']);
+          this.router.navigate(['/dashboard/']);
         }
       },
       error => {

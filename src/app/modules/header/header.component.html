@@ -1,6 +1,6 @@
-
+<!-- 
 <div class="container">
-  <app-header>
+  <app-header> -->
     <ng-container *ngIf="isUserLoggedIn">
       <!-- <ng-container> -->
       <mat-toolbar color="primary">
@@ -13,11 +13,11 @@
     
     
             <mat-menu #article="matMenu">
-              <button mat-menu-item routerLink="/article">Lista de articulos</button>         
+              <button mat-menu-item routerLink="/article/home">Lista de articulos</button>         
             </mat-menu>
     
             <mat-menu #comment="matMenu">
-              <button mat-menu-item routerLink="/comment">Lista de comentarios</button>          
+              <button mat-menu-item routerLink="/comment/home">Lista de comentarios</button>          
             </mat-menu>
             
           </mat-menu>
@@ -32,7 +32,10 @@
         </button>
       </mat-toolbar>
     </ng-container>
-  </app-header>
-  <hr>
-  <router-outlet></router-outlet>
-</div>
+
+
+    <button mat-button routerLink="/article/">sample/abm</button>
+  <!-- </app-header>
+  <hr> -->
+  <!-- <router-outlet></router-outlet> -->
+<!-- </div> -->

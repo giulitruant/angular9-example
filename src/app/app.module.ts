@@ -15,7 +15,8 @@ import { EditCommentComponent } from './modules/comment/pages/edit-comment/edit-
 import { AddCommentComponent } from './modules/comment/pages/add-comment/add-comment.component';
 import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-comment.component';
 import { AppConfigService } from './core/http/app-config.service';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './modules/header/header.component';
+
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => appConfig.loadAppConfig();

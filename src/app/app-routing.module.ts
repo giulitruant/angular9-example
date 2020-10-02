@@ -9,19 +9,18 @@ import { EditArticleComponent } from './modules/articles/pages/edit-article/edit
 import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-comment.component';
 import { AddCommentComponent } from './modules/comment/pages/add-comment/add-comment.component';
 import { EditCommentComponent } from './modules/comment/pages/edit-comment/edit-comment.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './modules/header/header.component';
 
-const routes: Routes = [
-  { path: '', component: LoginComponent , canActivate: [AuthGuard]},
-  { path: 'login', component: LoginComponent },
-  { path: 'change-password', component: ChangePasswordComponent },
+
+const routes: Routes = [  
   {
     path: 'dashboard',
     component: HeaderComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'article',
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         children: [
           {
             path: 'home', component: HomeArticleComponent, pathMatch: 'full'
@@ -39,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'comment',
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         children: [
           {
             path: 'home', component: HomeCommentComponent, pathMatch: 'full'
@@ -57,6 +56,8 @@ const routes: Routes = [
       }
     ]
   },
+  { path: 'login', component: LoginComponent },
+  { path: 'change-password', component: ChangePasswordComponent },  
   
 
 ];

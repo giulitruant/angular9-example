@@ -20,6 +20,7 @@ export class HomeArticleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    debugger;
     this.service.getArticles()
     .toPromise()
     .then((res: any) => {

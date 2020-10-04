@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { User } from 'src/app/core/authentication/user.model';
 
 
 @Component({
@@ -9,23 +12,20 @@ import { AuthenticationService } from 'src/app/core/authentication/authenticatio
 })
 export class HeaderComponent implements OnInit {
 
-  isUserLoggedIn = false;
+  isUserLoggedIn: Observable<User>;
 
   constructor(
-    private authentication: AuthenticationService
+    private authentication: AuthenticationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    debugger
-    this.authentication.isLogged()
-    .subscribe(user => {
-        if(user && user !== undefined){
-        this.isUserLoggedIn = true;
-      }else{
-        this.isUserLoggedIn = false;
-      }
-    });
-    ;
+    this.isUserLoggedIn = this.authentication.currentUser;
+
+  }
+
+  onLogout(){
+    this.authentication.logout();
   }
 
 }

@@ -1,65 +1,38 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
+
+
 import { LoginComponent } from './login/login.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { HomeComponent } from './home/home.component';
 import { HomeArticleComponent } from './modules/articles/pages/home-article/home-article.component';
-import { AddArticleComponent } from './modules/articles/pages/add-article/add-article.component';
 import { EditArticleComponent } from './modules/articles/pages/edit-article/edit-article.component';
-import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-comment.component';
-import { AddCommentComponent } from './modules/comment/pages/add-comment/add-comment.component';
-import { EditCommentComponent } from './modules/comment/pages/edit-comment/edit-comment.component';
-import { HeaderComponent } from './modules/header/header.component';
+import { AddArticleComponent } from './modules/articles/pages/add-article/add-article.component';
 
-
-const routes: Routes = [  
+const routes: Routes = [
   {
-    path: 'dashboard',
-    component: HeaderComponent,
+    path: '',
+    component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: 'article',
-        //canActivate: [AuthGuard],
+        component: HomeComponent,
+        canActivate: [AuthGuard],
         children: [
-          {
-            path: 'home', component: HomeArticleComponent, pathMatch: 'full'
-          },
-          {
-            path: 'add', component: AddArticleComponent, pathMatch: 'full'
-          },
-          {
-            path: 'edit/:id', component: EditArticleComponent, pathMatch: 'full'
-          },
-          {
-            path: '', redirectTo: 'home', pathMatch: 'full'
-          }
-        ]
-      },
-      {
-        path: 'comment',
-        //canActivate: [AuthGuard],
-        children: [
-          {
-            path: 'home', component: HomeCommentComponent, pathMatch: 'full'
-          },
-          {
-            path: 'add', component: AddCommentComponent, pathMatch: 'full'
-          },
-          {
-            path: 'edit/:id', component: EditCommentComponent, pathMatch: 'full'
-          },
-          {
-            path: '', redirectTo: 'home', pathMatch: 'full'
-          }
+          { path: 'home', component:  HomeArticleComponent, pathMatch: 'full'},
+          { path: 'edit/:id', component:  EditArticleComponent, pathMatch: 'full'},
+          { path: 'edit/:id', component:  AddArticleComponent, pathMatch: 'full'}
         ]
       }
     ]
   },
   { path: 'login', component: LoginComponent },
-  { path: 'change-password', component: ChangePasswordComponent },  
-  
-
+  { path: '**', redirectTo: '' }
 ];
 
-export const appRoutingModule = RouterModule.forRoot(routes);
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

@@ -1,41 +1,21 @@
-<!-- 
-<div class="container">
-  <app-header> -->
-    <ng-container *ngIf="isUserLoggedIn">
-      <!-- <ng-container> -->
-      <mat-toolbar color="primary">
-        <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu"
-          aria-label="Example icon-button with menu icon">
-          <mat-icon>menu</mat-icon>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item [matMenuTriggerFor]="article">Articulos</button>
-            <button mat-menu-item [matMenuTriggerFor]="comment">Comentarios</button>
-    
-    
-            <mat-menu #article="matMenu">
-              <button mat-menu-item routerLink="/article/home">Lista de articulos</button>         
-            </mat-menu>
-    
-            <mat-menu #comment="matMenu">
-              <button mat-menu-item routerLink="/comment/home">Lista de comentarios</button>          
-            </mat-menu>
-            
-          </mat-menu>
-        </button>
-        <span>My App</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-          <mat-icon>share</mat-icon>
-        </button>
-      </mat-toolbar>
-    </ng-container>
+<mat-toolbar color="primary" *ngIf="isUserLoggedIn | async as isLoggedIn">
+  <span>
+    Angular NavBar + Login Example
+  </span>
+  <span class="fill-remaining-space"></span>
+  <button mat-button [matMenuTriggerFor]="article">Articulo</button>
+  <button mat-button [matMenuTriggerFor]="comment">Comentario</button>
 
+  <mat-menu #article="matMenu">
+    <button mat-menu-item routerLink="/article/home">Lista de articulos</button>
+  </mat-menu>
 
-    <button mat-button routerLink="/article/">sample/abm</button>
-  <!-- </app-header>
-  <hr> -->
-  <!-- <router-outlet></router-outlet> -->
-<!-- </div> -->
+  <mat-menu #comment="matMenu">
+    <button mat-menu-item routerLink="/comment/home">Lista de comentarios</button>
+  </mat-menu>
+
+  <button mat-button (click)="onLogout()" *ngIf="isLoggedIn">Logout</button>
+</mat-toolbar>
+<div>
+  <router-outlet></router-outlet>
+</div>

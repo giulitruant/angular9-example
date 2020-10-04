@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppConfigService } from '../http/app-config.service';
@@ -19,14 +20,15 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private appConfig: AppConfigService
+    private appConfig: AppConfigService,
+    private router: Router
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  get currentUserValue() {
+    return this.currentUser;
   }
 
   login(args: { user: { email: string, password: string } }) {
@@ -47,12 +49,11 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.router.navigate(['/login']);
   }
 
-  isLogged(): any{
-
+  isLoggedIn(){
     return this.currentUser;
-    
     // this.currentUser.toPromise()
     // .then(res => {
     //   if(res && res !== undefined){

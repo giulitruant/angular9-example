@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ArticleService } from 'src/app/core/http/article.service';
@@ -11,8 +13,11 @@ import { ArticleService } from 'src/app/core/http/article.service';
 export class HomeArticleComponent implements OnInit {
 
   articlesData: any;
-
   dataSource: MatTableDataSource<any>;
+  resultsLength = 0;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private service: ArticleService,
@@ -20,12 +25,11 @@ export class HomeArticleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger;
     this.service.getArticles()
     .toPromise()
     .then((res: any) => {
-      //this.articlesData = res.articles;
       this.dataSource = new MatTableDataSource(res.articles);
+      this.resultsLength = res.articles.length;
     })
     .catch((error: any) =>
     console.dir(error)
@@ -41,12 +45,7 @@ export class HomeArticleComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  onPage(event: any){
-
-  }
-
-
+  
   edit(id: any){
 
     this.router.navigate(['./article/edit/' + id]);

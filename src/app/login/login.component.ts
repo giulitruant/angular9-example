@@ -42,13 +42,11 @@ export class LoginComponent implements OnInit {
         password: this.form.get('password').value,
       }
     };
-    
-    debugger;
 
     this.authService.login(args).subscribe(
       data => {
-        if (data && data !== undefined) {          
-          this.router.navigate(['/dashboard']);
+        if (data && data !== undefined) {
+          this.router.navigate(['/']);
         }
       },
       error => {

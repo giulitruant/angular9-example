@@ -1,21 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
-import { appRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { HomeArticleComponent } from './modules/articles/pages/home-article/home-article.component';
-import { AddArticleComponent } from './modules/articles/pages/add-article/add-article.component';
-import { EditArticleComponent } from './modules/articles/pages/edit-article/edit-article.component';
-import { EditCommentComponent } from './modules/comment/pages/edit-comment/edit-comment.component';
-import { AddCommentComponent } from './modules/comment/pages/add-comment/add-comment.component';
-import { HomeCommentComponent } from './modules/comment/pages/home-comment/home-comment.component';
 import { AppConfigService } from './core/http/app-config.service';
 import { HeaderComponent } from './modules/header/header.component';
+import { HomeComponent } from './home/home.component';
+//import { ArticleModule } from './modules/articles/article.module';
+import { HomeArticleComponent } from './modules/articles/pages/home-article/home-article.component';
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -26,21 +23,24 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   declarations: [
     AppComponent,
     LoginComponent,
-    AddArticleComponent,
-    EditArticleComponent,
-    EditCommentComponent,
-    AddCommentComponent,
-    HomeCommentComponent,
+    // AddArticleComponent,
+    // EditArticleComponent,
+    // EditCommentComponent,
+    // AddCommentComponent,
+    // HomeCommentComponent,
     HomeArticleComponent,
-    HeaderComponent,
+    // HeaderComponent,
+    HomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    appRoutingModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    //ArticleModule
   ],
   providers: [{
     provide: APP_INITIALIZER,

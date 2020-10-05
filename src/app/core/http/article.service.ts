@@ -22,6 +22,11 @@ export class ArticleService {
 
         }
 
+        getArticle(title: any){
+            return this.http.get(this.apiUrl + '/articles/' + title);
+
+        }
+
         getTags(){
             return this.http.get<any>(this.apiUrl + '/tags');
         }

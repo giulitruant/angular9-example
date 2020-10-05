@@ -45,7 +45,7 @@ export class HomeArticleComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  
+
   edit(id: any){
 
     this.router.navigate(['./article/edit/' + id]);

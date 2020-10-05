@@ -13,6 +13,8 @@ import { HeaderComponent } from './modules/header/header.component';
 import { HomeComponent } from './home/home.component';
 //import { ArticleModule } from './modules/articles/article.module';
 import { HomeArticleComponent } from './modules/articles/pages/home-article/home-article.component';
+import { AddArticleComponent } from './modules/articles/pages/add-article/add-article.component';
+import { EditArticleComponent } from './modules/articles/pages/edit-article/edit-article.component';
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -23,8 +25,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   declarations: [
     AppComponent,
     LoginComponent,
-    // AddArticleComponent,
-    // EditArticleComponent,
+    AddArticleComponent,
+    EditArticleComponent,
     // EditCommentComponent,
     // AddCommentComponent,
     // HomeCommentComponent,

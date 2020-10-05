@@ -1,11 +1,13 @@
-<mat-card *ngIf="dataSource">
-  <div>
+<mat-card style="text-align: center;">
+  <div class="example-loading-shade">
+    <mat-spinner *ngIf="!dataSource"></mat-spinner>
+
     <mat-form-field>
       <mat-label>Filtrar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      <input matInput (keyup)="applyFilter($event)" #input>
     </mat-form-field>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
       <ng-container matColumnDef="body">
         <th mat-header-cell *matHeaderCellDef> body. </th>
@@ -60,12 +62,10 @@
         *matRowDef="let row; columns: ['body', 'createdAt', 'description', 'favorited', 'slug', 'title', 'updatedAt', 'actions'];">
       </tr>
     </table>
-
   </div>
   
   <mat-paginator [length]="resultsLength"
-              [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-</mat-paginator>
-
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
 </mat-card>

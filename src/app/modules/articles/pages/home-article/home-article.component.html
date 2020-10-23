@@ -1,7 +1,6 @@
-<mat-card style="text-align: center;">
+<mat-spinner style="margin:0 auto;" *ngIf="!dataSource" ></mat-spinner>
+<mat-card *ngIf="dataSource">  
   <div class="example-loading-shade">
-    <mat-spinner *ngIf="!dataSource"></mat-spinner>
-
     <mat-form-field>
       <mat-label>Filtrar</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input>
@@ -49,7 +48,7 @@
         <mat-header-cell *matHeaderCellDef>
         </mat-header-cell>
         <mat-cell *matCellDef="let row;">
-          <button mat-icon-button type="button" (click)="edit(row.title)">
+          <button mat-icon-button type="button" (click)="edit(row.slug)">
             <mat-icon aria-label="select">forward</mat-icon>
           </button>
         </mat-cell>
@@ -62,10 +61,9 @@
         *matRowDef="let row; columns: ['body', 'createdAt', 'description', 'favorited', 'slug', 'title', 'updatedAt', 'actions'];">
       </tr>
     </table>
-  </div>
-  
-  <mat-paginator [length]="resultsLength"
+    <mat-paginator [length]="resultsLength"
     [pageSize]="5"
     [pageSizeOptions]="[5, 10, 25, 100]">
   </mat-paginator>
+  </div>   
 </mat-card>

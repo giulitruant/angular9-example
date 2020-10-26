@@ -11,6 +11,8 @@ import { ArticleService } from 'src/app/core/http/article.service';
 })
 export class EditArticleComponent implements OnInit {
 
+  
+
   id: any;
   article: any;
 
@@ -64,7 +66,7 @@ export class EditArticleComponent implements OnInit {
   }
 
   appConfig(){
-    
+    debugger;
     this.service.getArticle(this.id)
     .toPromise().then((res: any) => {
       console.dir(res);
@@ -84,11 +86,25 @@ export class EditArticleComponent implements OnInit {
   }
 
   setAuthorFields(author: any){
-    this.form.get('userName').setValue = author.userName;
-    this.form.get('bio').setValue = author.bio;
-    this.form.get('image').setValue = author.image;
-    this.form.get('following').setValue = author.following;
+    this.form.get('userName').setValue(author.userName);// = ;
+    this.form.get('bio').setValue(author.bio);
+    this.form.get('image').setValue(author.image);
+    this.form.get('following').setValue(author.following);
 
+  }
+
+  showPreview(event){
+    debugger;
+    const file = (event.target as HTMLInputElement).files[0];
+  
+    this.form.get('image').updateValueAndValidity();
+
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.form.get('image').setValue(reader.result as string);
+    }
+    reader.readAsDataURL(file)
   }
 
   onSubmit(){
